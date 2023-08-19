@@ -1,3 +1,35 @@
+const {JSDOM} = require('jsdom')
+
+function getURLformHTML(htmlbody , baseurl){
+    const urls = []
+    const dom = new JSDOM(htmlbody)
+    const linkElements = dom.window.document.querySelectorAll('a')
+    for (const linkElement of linkElements ){
+        if (linkElement.href.slice(0,1) ==='/'){
+            try {
+                const urlobj = new URL(`${baseurl}${linkElement.href}`)
+                urls.push(urlobj.href)
+            }
+            catch(err) {
+                console.log(err.message)
+            }
+            
+        }
+        else {
+            try {
+                const urlobj = new URL(linkElement.href)
+                urls.push(urlobj.href)
+            }
+            catch(err) {
+                console.log(err.message)
+            }
+        }
+        
+    }
+    return urls
+}
+
+
 function normalizeURL(urlString){
 
     const urlObj = new URL(urlString)
@@ -10,5 +42,6 @@ function normalizeURL(urlString){
 }
 
 module.exports = { 
-    normalizeURL
+    normalizeURL, 
+    getURLformHTML
 }
