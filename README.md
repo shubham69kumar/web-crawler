@@ -5,5 +5,6 @@
   -> npm start <WEBPAGE ADDRESS>
     eg: npm start http://google.com 
 # The project uses jest for testing and to make the project more robust you can add more test cases in the <filename>.test.js file. 
+  -> To test the test cases run npm test 
 
 
